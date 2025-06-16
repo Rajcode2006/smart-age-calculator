@@ -22,19 +22,15 @@ The **Smart Age Calculator** is a simple, clean, and interactive web application
 
 ## 🚀 Live Demo
 
-🔗 [Click here to use the Smart Age Calculator](https://yourusername.github.io/smart-age-calculator/)
+🔗 [Click here to use the Smart Age Calculator]( https://rajcode2006.github.io/smart-age-calculator/)
 
-> *(Replace with your actual live link after publishing)*
 
 ## 📂 How to Use
 
 1. Select your **birth year**, **month**, and **day** from the dropdowns.
 2. Click **"Calculate"**.
 3. View your full age, next birthday countdown, and time lived!
-
-## 📸 Screenshot
-
-*(Optional: Add a screenshot here using Markdown)*
+   
 
 ## 📄 License
 
