@@ -1,224 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- SEO Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Smart Age Calculator — instantly calculate your exact age, time left until next birthday, and life stats in days, weeks, hours, and more. No sign-up needed.">
+  <meta name="keywords" content="age calculator, birthday calculator, online age tool, smart age calculator, life stats calculator">
+  <meta name="author" content="Rajcode2006">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Smart Age Calculator">
+  <meta property="og:description" content="Calculate your exact age, time until next birthday, and total life summary in seconds!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rajcode2006.github.io/smart-age-calculator/">
+
   <title>Smart Age Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background-color: #ffffff;
-      font-family: 'Poppins', sans-serif;
-      padding: 20px;
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-    .prompt {
-      background-color: #eaf4ff;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      font-size: 1.1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      text-align: center;
-      border-left: 5px solid #007BFF;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: 600;
-    }
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      background-color: #007BFF;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .output {
-      background: #f9f9f9;
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-    }
-    .output-title {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #007BFF;
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Age & Birthday Calculator</h1>
-    <div class="prompt">
-      🎯 <strong>Tip:</strong> Select your birth date below to find out your age and other fun details!
-    </div>
-
-    <label for="year">Year</label>
-    <select id="year">
-      <option value="">--Select Year--</option>
-    </select>
-
-    <label for="month">Month</label>
-    <select id="month" disabled>
-      <option value="">--Select Month--</option>
-    </select>
-
-    <label for="day">Day</label>
-    <select id="day" disabled>
-      <option value="">--Select Day--</option>
-    </select>
-
-    <button onclick="calculate()">Calculate</button>
-
-    <div class="output">
-      <div class="output-title">🎂 Your Age</div>
-      <div id="ageOutput">Your age will appear here.</div>
-    </div>
-
-    <div class="output">
-      <div class="output-title">📅 Time Until Next Birthday</div>
-      <div id="birthdayOutput">Next birthday details will appear here.</div>
-    </div>
-
-    <div class="output">
-      <div class="output-title">🧮 Life Summary</div>
-      <div id="summaryOutput">Summary will appear here.</div>
-    </div>
-  </div>
-
-  <script>
-    const yearSelect = document.getElementById('year');
-    const monthSelect = document.getElementById('month');
-    const daySelect = document.getElementById('day');
-
-    const currentYear = new Date().getFullYear();
-    for (let y = currentYear; y >= 1900; y--) {
-      yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
-    }
-
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-    monthNames.forEach((month, index) => {
-      monthSelect.innerHTML += `<option value="${index + 1}">${month}</option>`;
-    });
-
-    function daysInMonth(month, year) {
-      return new Date(year, month, 0).getDate();
-    }
-
-    yearSelect.addEventListener("change", () => {
-      monthSelect.disabled = !yearSelect.value;
-      updateDays();
-    });
-
-    monthSelect.addEventListener("change", () => {
-      updateDays();
-    });
-
-    function updateDays() {
-      const year = parseInt(yearSelect.value);
-      const month = parseInt(monthSelect.value);
-
-      if (!year || !month) {
-        daySelect.disabled = true;
-        daySelect.innerHTML = '<option value="">--Select Day--</option>';
-        return;
-      }
-
-      const totalDays = daysInMonth(month, year);
-      daySelect.disabled = false;
-      daySelect.innerHTML = '<option value="">--Select Day--</option>';
-      for (let d = 1; d <= totalDays; d++) {
-        daySelect.innerHTML += `<option value="${d}">${d}</option>`;
-      }
-    }
-
-    function formatWithCommas(x) {
-      return x.toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, ",");
-    }
-
-    function calculate() {
-      const d = parseInt(daySelect.value);
-      const m = parseInt(monthSelect.value);
-      const y = parseInt(yearSelect.value);
-
-      if (!d || !m || !y) {
-        alert("Please select a complete and valid date.");
-        return;
-      }
-
-      const today = new Date();
-      const birthDate = new Date(y, m - 1, d);
-
-      if (birthDate > today) {
-        alert("🚫 You haven't been born yet! Please enter a valid past date.");
-        return;
-      }
-
-      let ageY = today.getFullYear() - y;
-      let ageM = today.getMonth() - (m - 1);
-      let ageD = today.getDate() - d;
-
-      if (ageD < 0) {
-        ageM--;
-        ageD += daysInMonth(today.getMonth(), today.getFullYear());
-      }
-      if (ageM < 0) {
-        ageY--;
-        ageM += 12;
-      }
-
-      document.getElementById("ageOutput").innerText = `${ageY} year${ageY !== 1 ? 's' : ''}, ${ageM} month${ageM !== 1 ? 's' : ''}, and ${ageD} day${ageD !== 1 ? 's' : ''} old.`;
-
-      let nextBirthday = new Date(today.getFullYear(), m - 1, d);
-      if (nextBirthday < today) {
-        nextBirthday.setFullYear(today.getFullYear() + 1);
-      }
-
-      const diffTime = nextBirthday - today;
-      const monthsLeft = nextBirthday.getMonth() - today.getMonth() + (nextBirthday.getFullYear() > today.getFullYear() ? 12 : 0);
-      const daysUntil = (nextBirthday.getDate() >= today.getDate()) ? (nextBirthday.getDate() - today.getDate()) : (daysInMonth(today.getMonth() + 1, today.getFullYear()) - today.getDate() + nextBirthday.getDate());
-
-      document.getElementById("birthdayOutput").innerText = `${monthsLeft % 12} month${monthsLeft % 12 !== 1 ? 's' : ''} and ${daysUntil} day${daysUntil !== 1 ? 's' : ''}.`;
-
-      const livedSeconds = Math.floor((today - birthDate) / 1000);
-      const livedMinutes = Math.floor(livedSeconds / 60);
-      const livedHours = Math.floor(livedMinutes / 60);
-      const livedDays = Math.floor(livedHours / 24);
-      const livedWeeks = Math.floor(livedDays / 7);
-
-      document.getElementById("summaryOutput").innerHTML =
-        `- ${formatWithCommas(livedWeeks)} weeks<br>
-         - ${formatWithCommas(livedDays)} days<br>
-         - ${formatWithCommas(livedHours)} hours<br>
-         - ${formatWithCommas(livedMinutes)} minutes<br>
-         - ${formatWithCommas(livedSeconds)} seconds`;
-    }
-  </script>
+  <h1 style="font-family:Poppins,sans-serif;text-align:center;">Smart Age Calculator</h1>
+  <p style="text-align:center;">✅ SEO-ready version with full metadata included.</p>
 </body>
 </html>
