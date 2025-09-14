@@ -262,7 +262,7 @@
 
     const currentYear = new Date().getFullYear();
     for (let y = currentYear; y >= 1900; y--) {
-      yearSelect.innerHTML += <option value="${y}">${y}</option>;
+      yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
     }
 
     const monthNames = [
@@ -270,7 +270,7 @@
       "July", "August", "September", "October", "November", "December"
     ];
     monthNames.forEach((month, index) => {
-      monthSelect.innerHTML += <option value="${index + 1}">${month}</option>;
+      monthSelect.innerHTML += `<option value="${index + 1}">${month}</option>`;
     });
 
     function daysInMonth(month, year) {
@@ -306,7 +306,7 @@
       daySelect.disabled = false;
       daySelect.innerHTML = '<option value="">--Select Day--</option>';
       for (let d = 1; d <= totalDays; d++) {
-        daySelect.innerHTML += <option value="${d}">${d}</option>;
+        daySelect.innerHTML += `<option value="${d}">${d}</option>`;
       }
     }
 
